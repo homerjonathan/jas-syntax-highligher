@@ -1,7 +1,7 @@
 {
   "name": "jas-syntax-highlight",
   "description": "Syntax Highligher (Polymer 2.0) using highlightjs Library",
-  "main": "syntax-highlight.html",
+  "main": "jas-syntax-highlight.html",
   "authors": [
     "Jonathan Homer <homer.jonathan@gmail.com>"
   ],
