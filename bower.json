@@ -1,0 +1,25 @@
+{
+  "name": "jas-syntax-highlight",
+  "description": "Syntax Highligher (Polymer 2.0) using highlightjs Library",
+  "main": "syntax-highlight.html",
+  "authors": [
+    "Jonathan Homer <homer.jonathan@gmail.com>"
+  ],
+  "homepage": "https://jasoftware.com",
+  "license": "MIT",
+  "keywords": [
+    "Syntax",
+    "highlightjs",
+    "Source code"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "highlightjs": "8.5"
+  }
+}
