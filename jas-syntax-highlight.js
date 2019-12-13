@@ -1,8 +1,7 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 import {
-  Options,
-  Highlighter,
   // import basic APIs
   registerLanguages,
   htmlRender,
@@ -13,11 +12,9 @@ import {
   XML
 } from 'highlight-ts';
 
-registerLanguages(
-  JavaScript,
-  XML
-);
-
+// Configure Highlighter (Library highlighter-ts)
+registerLanguages(JavaScript,XML);
+const options = { classPrefix: 'hljs-'};
 const highlighter = init(htmlRender, options);
 
 class JasSyntaxHighlight extends PolymerElement {
@@ -201,7 +198,7 @@ class JasSyntaxHighlight extends PolymerElement {
       }
 
     </style>
-    <pre><code id="syntaxdisplay"></code></pre>
+    <pre><code id="syntaxdisplay" class="hljs"></code></pre>
     `
   }
   static get is() {
@@ -226,18 +223,19 @@ class JasSyntaxHighlight extends PolymerElement {
       super.attachedCallback();
       this.$.syntaxdisplay.classList.add(this.lang);
       const html = process(highlighter, this.code);
-      this.$.syntaxdisplay.innerHTML = html;
+      this.$.syntaxdisplay.innerHTML = html.value;
   }
   _codeChanged(value) {
       this.$.syntaxdisplay.textContent = value;
       const html = process(highlighter, this.code);
-      this.$.syntaxdisplay.innerHTML = html;
+      // console.log(html);
+      this.$.syntaxdisplay.innerHTML = html.value;
   }
   _langChanged(newValue,oldValue) {
       this.$.syntaxdisplay.classList.delete(oldValue);
       this.$.syntaxdisplay.classList.add(newValue);
       const html = process(highlighter, this.code);
-      this.$.syntaxdisplay.innerHTML = html;
+      this.$.syntaxdisplay.innerHTML = html.value;
   }
 }
 customElements.define(JasSyntaxHighlight.is, JasSyntaxHighlight);
