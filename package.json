@@ -1,0 +1,27 @@
+{
+  "name": "@jasoftware/jas-syntax-highlight",
+  "version": "3.0.0",
+  "description": "Syntax Highlighter for Polymer 3",
+  "main": "jas-syntax-highlight.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homerjonathan/jas-syntax-highlight.git"
+  },
+  "keywords": [
+    "Syntax",
+    "Highlight",
+    "Polymer3"
+  ],
+  "author": "JaSoftware",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/homerjonathan/jas-syntax-highlight/issues"
+  },
+  "homepage": "https://github.com/homerjonathan/jas-syntax-highlight#readme",
+  "dependencies": {
+    "highlight-ts": "^9.12.1-2"
+  }
+}

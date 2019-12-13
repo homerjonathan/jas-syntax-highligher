@@ -1,8 +1,28 @@
-<script src="../highlightjs/highlight.pack.js"></script>
-<link rel="import" href="../polymer/polymer-element.html">
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="jas-syntax-highlight">
-  <template>
+import {
+  Options,
+  Highlighter,
+  // import basic APIs
+  registerLanguages,
+  htmlRender,
+  init,
+  process,
+  // import preferred languages
+  JavaScript,
+  XML
+} from 'highlight-ts';
+
+registerLanguages(
+  JavaScript,
+  XML
+);
+
+const highlighter = init(htmlRender, options);
+
+class JasSyntaxHighlight extends PolymerElement {
+  static get template() {
+    return html `
     <style>
       :host {
         display: block;
@@ -182,51 +202,42 @@
 
     </style>
     <pre><code id="syntaxdisplay"></code></pre>
-  </template>
-</dom-module>
-
-<script>
-
-  class JasSyntaxHighlight extends Polymer.Element {
-
-      static get is() { return 'jas-syntax-highlight'; }
-
-      static get properties() {
-          return {
-              lang: {
-                  type: String,
-                  notify: true,
-                  reflectToAttribute: true,
-                  observer: "_langChanged"
-              },
-              code: {
-                  type: String,
-                  notify: true,
-                  observer: "_codeChanged"
-              }
+    `
+  }
+  static get is() {
+      return 'jas-syntax-highlight';
+  }
+  static get properties() {
+      return {
+          lang: {
+              type: String,
+              notify: true,
+              reflectToAttribute: true,
+              observer: "_langChanged"
+          },
+          code: {
+              type: String,
+              notify: true,
+              observer: "_codeChanged"
           }
       }
-
-      constructor() {
-          super();
-      }
-
-      attachedCallback() {
-          super.attachedCallback();
-          this.$.syntaxdisplay.classList.add(this.lang);
-          hljs.highlightBlock(this.$.syntaxdisplay);
-      }
-
-      _codeChanged(value) {
-          this.$.syntaxdisplay.textContent = value;
-          hljs.highlightBlock(this.$.syntaxdisplay);
-      }
-
-      _langChanged(newValue,oldValue) {
-          this.$.syntaxdisplay.classList.delete(oldValue);
-          this.$.syntaxdisplay.classList.add(newValue);
-          hljs.highlightBlock(this.$.syntaxdisplay);
-      }
-    }
-    customElements.define(JasSyntaxHighlight.is, JasSyntaxHighlight);
-</script>
+  }
+  attachedCallback() {
+      super.attachedCallback();
+      this.$.syntaxdisplay.classList.add(this.lang);
+      const html = process(highlighter, this.code);
+      this.$.syntaxdisplay.innerHTML = html;
+  }
+  _codeChanged(value) {
+      this.$.syntaxdisplay.textContent = value;
+      const html = process(highlighter, this.code);
+      this.$.syntaxdisplay.innerHTML = html;
+  }
+  _langChanged(newValue,oldValue) {
+      this.$.syntaxdisplay.classList.delete(oldValue);
+      this.$.syntaxdisplay.classList.add(newValue);
+      const html = process(highlighter, this.code);
+      this.$.syntaxdisplay.innerHTML = html;
+  }
+}
+customElements.define(JasSyntaxHighlight.is, JasSyntaxHighlight);
