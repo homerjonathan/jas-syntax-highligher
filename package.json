@@ -1,6 +1,6 @@
 {
   "name": "@jasoftware/jas-syntax-highlight",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Syntax Highlighter for Polymer 3",
   "main": "jas-syntax-highlight.js",
   "scripts": {
